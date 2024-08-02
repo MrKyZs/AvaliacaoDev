@@ -1,5 +1,6 @@
 package br.com.soc.sistema.business;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,4 +63,28 @@ public class ExameBusiness {
 			throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
 		}
 	}
+
+	public void editarExame(ExameVo exameVo) {
+		try {
+			if(exameVo.getNome().isEmpty()) {
+				throw new IllegalArgumentException("Nome nao pode ser em branco");
+			}
+			
+			dao.updateExame(exameVo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BusinessException("Nao foi possivel realizar a edição do registro");
+		}
+	}
+	
+	public void excluirExame(String id) {
+		try {
+			dao.deleteExame(id);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			throw new BusinessException("Nao foi possivel realizar a exclusão do registro");
+		}
+	}
+
 }

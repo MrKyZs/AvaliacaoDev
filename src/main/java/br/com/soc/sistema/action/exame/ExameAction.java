@@ -23,8 +23,9 @@ public class ExameAction extends Action {
 	}
 	
 	public String filtrar() {
-		if(filtrar.isNullOpcoesCombo())
+		if(filtrar.isNullOpcoesCombo()) {
 			return REDIRECT;
+		}
 		
 		exames = business.filtrarExames(filtrar);
 		
@@ -41,12 +42,25 @@ public class ExameAction extends Action {
 	}
 	
 	public String editar() {
-		if(exameVo.getRowid() == null)
+		if(exameVo.getRowid() == null) {
 			return REDIRECT;
+		}
+		exameVo = business.buscarExamePor(exameVo.getRowid());		
+
+		return "editar";
+	}
+	
+	public String salvar() {
+
+		business.editarExame(exameVo);
+		return REDIRECT;
+	}
+	
+	public String excluir(){
+
+		business.excluirExame(exameVo.getRowid());
 		
-		exameVo = business.buscarExamePor(exameVo.getRowid());
-		
-		return INPUT;
+		return REDIRECT;
 	}
 	
 	public List<OpcoesComboBuscarExames> getListaOpcoesCombo(){

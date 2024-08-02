@@ -15,7 +15,17 @@
         <action name="*Exames" class="br.com.soc.sistema.action.exame.ExameAction" method="{1}">
         	<result name="success">/exame/cadExame_b.jsp</result>
             <result name="input">/exame/cadExame_i.jsp</result>
+            <result name="editar">/exame/cadExame_e.jsp</result>
         	<result name="redirect" type="redirectAction">todosExames</result>
+        </action>
+    </package>
+    
+	<package name="br.com.soc.sistema.funcionarios" extends="struts-default" strict-method-invocation="false">
+        <action name="*Funcionario" class="br.com.soc.sistema.action.funcionario.FuncionarioAction" method="{1}">
+        	<result name="success">/funcionario/cadFuncionario_b.jsp</result>
+            <result name="input">//funcionario/cadFuncionario_i.jsp</result>
+            <result name="editar">/funcionario/cadFuncionario_e.jsp</result>
+        	<result name="redirect" type="redirectAction">todosFuncionario</result>
         </action>
     </package>
 
