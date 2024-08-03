@@ -29,7 +29,6 @@ public class FuncionarioDAO {
 									);
 							listFuncionarios.add(funcionario);
 						}
-						System.out.println(listFuncionarios);
 						return listFuncionarios;
 					}
 				}
@@ -63,6 +62,31 @@ public class FuncionarioDAO {
 		}
 		
 		return funcionarioVo;		
+	}
+
+	public List<FuncionarioVo> selectByNome(String nome) {
+		StringBuilder query = new StringBuilder("SELECT rowid id, nm_funcionario nome FROM funcionario WHERE lower(nm_funcionario) LIKE CONCAT('%', LOWER(?), '%'); ");
+		List<FuncionarioVo> listFuncionarios = new ArrayList<>();
+
+		try(Connection con = connectionSQL.criarConexao()){
+			try(PreparedStatement stm = con.prepareStatement(query.toString())){
+				stm.setString(1, nome);
+				try(ResultSet rs = stm.executeQuery()){
+					while(rs.next()) {
+						FuncionarioVo funcionario = new FuncionarioVo(
+								rs.getString("id"),
+								rs.getString("nome")
+								);
+						listFuncionarios.add(funcionario);
+					}
+					return listFuncionarios;
+				}
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public void insertFuncionario(FuncionarioVo funcionarioVo){

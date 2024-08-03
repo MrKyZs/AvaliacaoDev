@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="ISO-8859-1">
-		<title><s:text name="label.titulo.pagina.cadastro"/></title>
+		<title><s:text name="label.titulo.pagina.cadastro.funcionarios"/></title>
 		<link rel='stylesheet' href='webjars/bootstrap/5.1.3/css/bootstrap.min.css'>
 	</head>
 	<body class="bg-secondary">

@@ -5,13 +5,14 @@ import java.util.List;
 
 import br.com.soc.sistema.business.FuncionarioBusiness;
 import br.com.soc.sistema.infra.Action;
-import br.com.soc.sistema.vo.ExameVo;
+import br.com.soc.sistema.infra.FiltroBusca;
 import br.com.soc.sistema.vo.FuncionarioVo;
 
 public class FuncionarioAction extends Action{
 	private FuncionarioVo funcionarioVo = new FuncionarioVo();
 	private FuncionarioBusiness business = new FuncionarioBusiness();
 	private List<FuncionarioVo> listFuncionarios = new ArrayList<>();
+	private FiltroBusca filtroBusca;
 
 	public String todos() {
 
@@ -51,6 +52,16 @@ public class FuncionarioAction extends Action{
 		return REDIRECT;
 	}
 	
+	public String filtrar() {
+		if(filtroBusca.getTipoFiltro() == "" || filtroBusca.getConteudo() == "") {
+			return REDIRECT;
+		}
+
+		listFuncionarios = business.mostrarResultadoFiltro(filtroBusca);
+		
+		return SUCCESS;
+	}
+	
 	public FuncionarioVo getFuncionarioVo() {
 		return funcionarioVo;
 	}
@@ -63,4 +74,12 @@ public class FuncionarioAction extends Action{
 	public void setListFuncionarios(List<FuncionarioVo> listFuncionarios) {
 		this.listFuncionarios = listFuncionarios;
 	}
+	public FiltroBusca getFiltroBusca() {
+		return filtroBusca;
+	}
+	public void setFiltroBusca(FiltroBusca filtroBusca) {
+		this.filtroBusca = filtroBusca;
+	}
+
+
 }
