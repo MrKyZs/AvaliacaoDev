@@ -66,7 +66,7 @@
 									<s:url action="excluirExamesFuncionarios" var="excluir">
 										<s:param name="examesFuncionarioVo.rowid" value="rowid"/>
 									</s:url>
-									<a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmarExclusao" onclick="confirmarExclusao(${rowid})" >
+									<a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmarExclusao" onclick="confirmarExclusao('${excluir}')" >
 										<s:text name="label.excluir"/>
 									</a>
 								</td>
@@ -77,7 +77,7 @@
 					<tfoot class="table-secondary">
 						<tr>
 							<td colspan="5">
-								<s:url action="novoExamesFuncionarios" var="novo"/>
+								<s:url action="exibirNovoExamesFuncionarios" var="novo"/>
 								
 								<a href="${novo}" class="btn btn-success">
 									<s:text name="label.novo"/>
@@ -122,16 +122,6 @@
 		</div>
 		
 		<script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-		<script>
-			function confirmarExclusao(rowid){
-				var urlBase = '${excluir}';
-				var botaoExcluirModal = document.getElementById("botaoExcluirModal");
-				botaoExcluirModal.href = urlBase;
-				console.log(urlBase);
-				var modal = new bootstrap.Modal(document.getElementById("confirmarExclusao"));
-				modal.show();
-			}
-		</script>
-
+		<script src="javascript/linksModal.js"></script>
 	</body>
 </html>

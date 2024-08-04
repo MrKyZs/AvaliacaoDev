@@ -14,14 +14,7 @@ public class FuncionarioBusiness {
 	FuncionarioFilter filtroFuncionario = new FuncionarioFilter();
 	
 	public void inserirFuncionario(FuncionarioVo funcionarioVo) {
-		try {
-			if(funcionarioVo.getNome().isEmpty())
-				throw new IllegalArgumentException("Nome nao pode ser em branco");
-			
-			daoFuncionario.insertFuncionario(funcionarioVo);
-		} catch (Exception e) {
-			throw new BusinessException("Nao foi possivel realizar a inclusao do registro");
-		}
+		daoFuncionario.insertFuncionario(funcionarioVo);
 	}
 	
 	public List<FuncionarioVo> mostrarFuncionarios() {

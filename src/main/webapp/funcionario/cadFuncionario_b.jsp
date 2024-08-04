@@ -52,7 +52,7 @@
 								<td>${nome}</td>
 								<td class="text-end">
 									<s:url action="editarFuncionario" var="editar">
-										<s:param name="funcionarioVo.rowid" value="rowid"></s:param>
+										<s:param name="funcionarioVo.rowid" value="%{rowid}"></s:param>
 									</s:url>
 									<a href="${editar}" class="btn btn-warning text-white">
 										<s:text name="label.editar"/>
@@ -61,7 +61,7 @@
 									<s:url action="excluirFuncionario" var="excluir">
 										<s:param name="funcionarioVo.rowid" value="rowid"/>
 									</s:url>
-									<a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmarExclusao" onclick="confirmarExclusao(${rowid})" >
+									<a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmarExclusao" onclick="confirmarExclusao('${excluir}')" >
 										<s:text name="label.excluir"/>
 									</a>
 								</td>
@@ -72,7 +72,7 @@
 					<tfoot class="table-secondary">
 						<tr>
 							<td colspan="3">
-								<s:url action="novoFuncionario" var="novo"/>
+								<s:url action="exibirNovoFuncionario" var="novo"/>
 								
 								<a href="${novo}" class="btn btn-success">
 									<s:text name="label.novo"/>
@@ -87,7 +87,7 @@
 			
 			</div>
 			
-			<div  class="modal fade" id="confirmarExclusao" 
+		<div  class="modal fade" id="confirmarExclusao" 
 			data-bs-backdrop="static" data-bs-keyboard="false"
 			tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 			  <div class="modal-dialog" role="document">
@@ -116,17 +116,7 @@
 			</div>
 		</div>
 		
-		<script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-		
-		<script>
-			function confirmarExclusao(rowid){
-				var urlBase = '${excluir}';
-				var botaoExcluirModal = document.getElementById("botaoExcluirModal");
-				botaoExcluirModal.href = urlBase;
-				console.log(urlBase);
-				var modal = new bootstrap.Modal(document.getElementById("confirmarExclusao"));
-				modal.show();
-			}
-		</script>
+		<script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>	
+		<script src="javascript/linksModal.js"></script>
 	</body>
 </html>

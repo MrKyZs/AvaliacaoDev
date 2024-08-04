@@ -32,9 +32,15 @@ public class ExameAction extends Action {
 		return SUCCESS;
 	}
 	
+	public String exibirNovo() {
+		return INPUT;
+	}
+	
 	public String novo() {
-		if(exameVo.getNome() == null)
+		if(exameVo.getNome() == "") {
+			addFieldError("campoNome", "Favor preencher o campo nome");
 			return INPUT;
+		}
 		
 		business.salvarExame(exameVo);
 		
@@ -42,9 +48,7 @@ public class ExameAction extends Action {
 	}
 	
 	public String editar() {
-		if(exameVo.getRowid() == null) {
-			return REDIRECT;
-		}
+
 		exameVo = business.buscarExamePor(exameVo.getRowid());		
 
 		return "editar";
@@ -52,6 +56,12 @@ public class ExameAction extends Action {
 	
 	public String salvar() {
 
+		if(exameVo.getNome() == "") {
+			exameVo = business.buscarExamePor(exameVo.getRowid());		
+			addFieldError("campoNome", "Favor preencher o campo nome");
+			return "editar";
+		}
+		
 		business.editarExame(exameVo);
 		return REDIRECT;
 	}

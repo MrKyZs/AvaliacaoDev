@@ -62,7 +62,7 @@
 									<s:url action="excluirExames" var="excluir">
 										<s:param name="exameVo.rowid" value="rowid"/>
 									</s:url>
-									<a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmarExclusao" onclick="confirmarExclusao(${rowid})" >
+									<a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmarExclusao" onclick="confirmarExclusao('${excluir}')" >
 										<s:text name="label.excluir"/>
 									</a>
 								</td>
@@ -73,7 +73,7 @@
 					<tfoot class="table-secondary">
 						<tr>
 							<td colspan="3">
-								<s:url action="novoExames" var="novo"/>
+								<s:url action="exibirNovoExames" var="novo"/>
 								
 								<a href="${novo}" class="btn btn-success">
 									<s:text name="label.novo"/>
@@ -105,7 +105,7 @@
 		      </div>
 		      
 		      <div class="modal-footer">
-	        	<a class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">
+	        	<a class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" href="todosExames">
 					<s:text name="label.nao"/>
 				</a>
 	        	
@@ -118,16 +118,5 @@
 		</div>
 		
 		<script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-		
-		<script>
-			function confirmarExclusao(rowid){
-				var urlBase = '${excluir}';
-				var botaoExcluirModal = document.getElementById("botaoExcluirModal");
-				botaoExcluirModal.href = urlBase;
-				console.log(urlBase);
-				var modal = new bootstrap.Modal(document.getElementById("confirmarExclusao"));
-				modal.show();
-			}
-		</script>
-	</body>
+		<script src="javascript/linksModal.js"></script>
 </html>

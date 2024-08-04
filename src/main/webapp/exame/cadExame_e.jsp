@@ -43,6 +43,7 @@
 							</label>	
 
 							<div class="col-sm-5">
+								<s:fielderror fieldName="campoNome"/>
 								<s:textfield cssClass="form-control" id="nome" name="exameVo.nome"/>							
 							</div>	
 						</div>

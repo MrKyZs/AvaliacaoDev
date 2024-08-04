@@ -96,11 +96,11 @@ public class FuncionarioDAO {
 			try(PreparedStatement stm = con.prepareStatement(query.toString())){
 				stm.setString(1, funcionarioVo.getNome());
 				stm.executeUpdate();
-				con.commit();
 			}
 			catch (SQLException e) {
 				con.rollback();
 			}
+			con.commit();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -118,11 +118,11 @@ public class FuncionarioDAO {
 				stm.setString(1, funcionarioVo.getNome());
 				stm.setString(2, funcionarioVo.getRowid());
 				stm.executeUpdate();
-				con.commit();
 			}
 			catch(SQLException e) {
 				con.rollback();
 			}
+			con.commit();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -132,22 +132,32 @@ public class FuncionarioDAO {
 
 	public void deleteFuncionario(String id) {
 		
-		StringBuilder query = new StringBuilder("DELETE FROM funcionario WHERE rowid = ?");
+		StringBuilder queryDeleteExamesFuncionario = new StringBuilder("DELETE FROM exame_funcionarios WHERE cd_funcionario = ?");
+		StringBuilder queryDeleteFuncionario = new StringBuilder("DELETE FROM funcionario WHERE rowid = ?");
 		
 		try(Connection con = connectionSQL.criarConexao()){
 			con.setAutoCommit(false);
-			try(PreparedStatement stm = con.prepareStatement(query.toString())){
+			try(PreparedStatement stm = con.prepareStatement(queryDeleteExamesFuncionario.toString())){
 				stm.setString(1, id);
 				stm.executeUpdate();
-				con.commit();
 			}
 			catch(SQLException e) {
 				con.rollback();
 			}
+			
+			try(PreparedStatement stment = con.prepareStatement(queryDeleteFuncionario.toString())){
+				stment.setString(1, id);
+				stment.executeUpdate();
+			}
+			catch(SQLException e) {
+				con.rollback();
+			}
+			
+			con.commit();
 		}
+		
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 }

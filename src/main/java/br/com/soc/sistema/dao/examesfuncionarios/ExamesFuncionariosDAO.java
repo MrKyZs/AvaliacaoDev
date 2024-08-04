@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.soc.sistema.dao.MysqlDAO;
+import br.com.soc.sistema.exception.BusinessException;
 import br.com.soc.sistema.vo.ExameVo;
 import br.com.soc.sistema.vo.ExamesFuncionariosVo;
 import br.com.soc.sistema.vo.FuncionarioVo;
@@ -58,22 +59,40 @@ public class ExamesFuncionariosDAO {
 	}
 
 	public void inserirExameFuncionario(ExamesFuncionariosVo examesFuncionarios) {
-		StringBuilder query = new StringBuilder("INSERT INTO exame_funcionarios (dataExame, cd_funcionario, cd_exame) VALUES (?, ?, ?)");
-
+		
+		StringBuilder querySelectExamesFuncionarios = new StringBuilder("SELECT COUNT(*) AS examesIguais FROM exame_funcionarios WHERE dataExame = ? AND cd_funcionario = ? AND cd_exame = ?");
+		StringBuilder queryInsert = new StringBuilder("INSERT INTO exame_funcionarios (dataExame, cd_funcionario, cd_exame) VALUES (?, ?, ?)");
+		
+		int examesIguais = -1;
+		
 		try(Connection con = connectionSQL.criarConexao()){
 			con.setAutoCommit(false);
-			System.out.println("CHEGUEI CRIEI CONEXAO");
-			try(PreparedStatement stm = con.prepareStatement(query.toString())){
-				stm.setDate(1, examesFuncionarios.getDataExame());
-				stm.setString(2, examesFuncionarios.getFuncionario().getRowid());
-				stm.setString(3, examesFuncionarios.getExame().getRowid());
-				stm.executeUpdate();
-				con.commit();
+			try(PreparedStatement statement = con.prepareStatement(querySelectExamesFuncionarios.toString())){
+				statement.setDate(1, examesFuncionarios.getDataExame());
+				statement.setString(2, examesFuncionarios.getFuncionario().getRowid());
+				statement.setString(3, examesFuncionarios.getExame().getRowid());
+				try(ResultSet rs = statement.executeQuery()){
+					while(rs.next()) {
+						examesIguais = rs.getInt("examesIguais");
+					}
+					if(examesIguais != 0) {
+						throw new BusinessException("Esse exame já foi cadastrado para este funcionario");
+					}
+					else {
+						try(PreparedStatement stm = con.prepareStatement(queryInsert.toString())){
+							stm.setDate(1, examesFuncionarios.getDataExame());
+							stm.setString(2, examesFuncionarios.getFuncionario().getRowid());
+							stm.setString(3, examesFuncionarios.getExame().getRowid());
+							stm.executeUpdate();
+						}
+						catch(SQLException e) {
+							con.rollback();
+							e.printStackTrace();
+						}
+					}
+				}
 			}
-			catch(SQLException e) {
-				con.rollback();
-				e.printStackTrace();
-			}
+			con.commit();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();

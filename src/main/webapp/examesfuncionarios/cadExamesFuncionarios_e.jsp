@@ -77,6 +77,7 @@
 							</label>	
 
 							<div class="col-sm-5">
+								<s:fielderror fieldName="campoData"/>
 								<s:textfield type="date" cssClass="form-control" id="data" name="dataExameString" value="%{dataExameString}"/>
 							</div>	
 						</div>

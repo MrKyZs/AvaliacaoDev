@@ -10,7 +10,6 @@
 		<link rel='stylesheet' href='webjars/bootstrap/5.1.3/css/bootstrap.min.css'>
 	</head>
 	<body class="bg-secondary">
-
 		<div class="container">
 			<s:form action="/novoExamesFuncionarios.action">
 
@@ -29,7 +28,7 @@
 					</div>
 					
 					<div class="card-body">
-						<div class="row align-items-center">
+						<div class="row align-items-center">						
 							<label for="id" class="col-sm-1 col-form-label text-center">
 								Código:
 							</label>	
@@ -77,6 +76,7 @@
 							</label>	
 
 							<div class="col-sm-5">
+								<s:fielderror fieldName="campoData"/>
 								<s:textfield type="date" cssClass="form-control" id="data" name="dataExameString"/>
 							</div>	
 						</div>

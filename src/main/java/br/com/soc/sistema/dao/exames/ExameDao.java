@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 import br.com.soc.sistema.dao.MysqlDAO;
+import br.com.soc.sistema.exception.BusinessException;
 import br.com.soc.sistema.vo.ExameVo;
 
 public class ExameDao {
@@ -38,31 +39,50 @@ public class ExameDao {
 				stm.setString(1, examevo.getNome());
 				stm.setString(2, examevo.getRowid());
 				stm.executeUpdate();
-				con.commit();
 			}
 			catch(SQLException e) {
 				con.rollback();
 				e.printStackTrace();
 			}
+			con.commit();
 		}
 	}
 	
 	public void deleteExame(String id) throws SQLException {
-		StringBuilder query = new StringBuilder("DELETE FROM exame WHERE rowid = ?");
 		
+		StringBuilder queryChecarExamesFuncionarios = new StringBuilder("SELECT COUNT(cd_exame) AS examesRealizados FROM exame_funcionarios WHERE cd_exame = ?");
+		StringBuilder queryDeleteExame = new StringBuilder("DELETE FROM exame WHERE rowid = ?");
+		
+		int examesRealizados = -1;
+
 		try(Connection con = connectionSQL.criarConexao()){
-			try(PreparedStatement stm = con.prepareStatement(query.toString())){
-				con.setAutoCommit(false);
-				stm.setString(1, id);
-				stm.executeUpdate();
-				con.commit();
+			con.setAutoCommit(false);
+			try(PreparedStatement statement = con.prepareStatement(queryChecarExamesFuncionarios.toString())){
+				statement.setString(1, id);
+				try(ResultSet rs = statement.executeQuery()){
+					while(rs.next()) {
+						examesRealizados = rs.getInt("examesRealizados");
+					}
+					if(examesRealizados != 0) {
+						throw new BusinessException("Esse exame já foi realizado por algum funcionario");
+					}
+					else {
+						try(PreparedStatement stm = con.prepareStatement(queryDeleteExame.toString())){
+							stm.setString(1, id);
+							stm.executeUpdate();
+						}
+						catch(SQLException e) {
+							con.rollback();
+							e.printStackTrace();
+						}
+					}
+				}
+				catch(SQLException e) {
+					e.printStackTrace();
+				}
 			}
-			catch(SQLException e) {
-				con.rollback();
-				e.printStackTrace();
-			}
+			con.commit();
 		}
-		
 	}
 	
 	public List<ExameVo> findAllExames(){

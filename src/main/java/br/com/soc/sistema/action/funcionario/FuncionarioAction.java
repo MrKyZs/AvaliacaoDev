@@ -21,8 +21,13 @@ public class FuncionarioAction extends Action{
 		return SUCCESS;
 	}
 	
+	public String exibirNovo() {
+		return INPUT;
+	}
+	
 	public String novo() {
-		if(funcionarioVo.getNome() == null) {
+		if(funcionarioVo.getNome() == "") {
+			addFieldError("campoNome", "Favor preencher o campo nome");
 			return INPUT;
 		}
 
@@ -39,6 +44,12 @@ public class FuncionarioAction extends Action{
 	}
 	
 	public String salvar() {
+		
+		if(funcionarioVo.getNome() == "") {
+			funcionarioVo = business.getFuncionarioId(funcionarioVo.getRowid());
+			addFieldError("campoNome", "Favor preencher o campo nome");
+			return "editar";
+		}
 		
 		business.editarFuncionario(funcionarioVo);
 		
@@ -58,6 +69,10 @@ public class FuncionarioAction extends Action{
 		}
 
 		listFuncionarios = business.mostrarResultadoFiltro(filtroBusca);
+		
+		if(listFuncionarios.isEmpty() || listFuncionarios.get(0) == null) {
+			return REDIRECT;
+		}
 		
 		return SUCCESS;
 	}

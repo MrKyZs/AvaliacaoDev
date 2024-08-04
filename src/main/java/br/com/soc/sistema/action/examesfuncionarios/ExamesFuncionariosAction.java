@@ -35,13 +35,22 @@ public class ExamesFuncionariosAction extends Action{
 		return SUCCESS;
 	}
 	
+	public String exibirNovo() {
+		listFuncionarios = businessFuncionario.mostrarFuncionarios();
+		listExames = businessExames.trazerTodosOsExames();
+		
+		return INPUT;
+	}
+	
 	public String novo() {
-		if(examesFuncionarioVo.getRowid() == null) {
+		if(dataExameString == "") {
 			listFuncionarios = businessFuncionario.mostrarFuncionarios();
 			listExames = businessExames.trazerTodosOsExames();
+			addFieldError("campoData", "Favor preencher a data");
 			
 			return INPUT;
 		}
+		
 		dataExameDate = business.changeToDateType(dataExameString);
 		examesFuncionarioVo.setDataExame(dataExameDate);
 		business.inserirExamesFuncionarios(examesFuncionarioVo);
@@ -62,12 +71,21 @@ public class ExamesFuncionariosAction extends Action{
 	
 	public String salvar() {
 		
-		System.out.println("CHEGUEI");
+		if(dataExameString == "") {
+			
+			examesFuncionarioVo = business.getExamesFuncionariosById(examesFuncionarioVo.getRowid());
+			dataExameString = business.changeToStringType(examesFuncionarioVo.getDataExame());
+			
+			listFuncionarios = businessFuncionario.mostrarFuncionarios();
+			listExames = businessExames.trazerTodosOsExames();
+			addFieldError("campoData", "O campo data deve possuir uma data valida");
+
+			return "editar";
+		}
+		
 		dataExameDate = business.changeToDateType(dataExameString);
 		examesFuncionarioVo.setDataExame(dataExameDate);
-		
-		System.out.println(examesFuncionarioVo.getFuncionario().getRowid());
-		
+				
 		business.updateExamesFuncionarios(examesFuncionarioVo);
 		
 		return REDIRECT;
@@ -86,6 +104,10 @@ public class ExamesFuncionariosAction extends Action{
 		}
 
 		listExamesFuncionarios = business.getResultFilter(filtroBusca);
+		
+		if(listExamesFuncionarios.isEmpty()) {
+			return REDIRECT;
+		}
 		
 		return SUCCESS;
 	}
