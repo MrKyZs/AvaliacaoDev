@@ -1,6 +1,5 @@
 package br.com.soc.sistema.business;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 

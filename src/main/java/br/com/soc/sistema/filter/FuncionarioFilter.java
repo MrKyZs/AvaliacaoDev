@@ -11,7 +11,6 @@ public class FuncionarioFilter {
 	
 	FuncionarioDAO daoFuncionario = new FuncionarioDAO();
 
-	
 	public List<FuncionarioVo> selectFilter(FiltroBusca filtroBusca) {
 		
 		List<FuncionarioVo> funcionariosFiltrados = new ArrayList<>();
