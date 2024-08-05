@@ -53,7 +53,9 @@
 								<td>${rowid}</td>
 								<td>${funcionario.nome}</td>
 								<td>${exame.nome}</td>
-								<td>${dataExame}</td>
+								<td>
+									<s:date name="dataExame" format="dd/MM/yyyy"/>
+								</td>
 								
 								<td class="text-end">
 									<s:url action="editarExamesFuncionarios" var="editar">
@@ -93,9 +95,10 @@
 			</div>
 		</div>
 		
-		<div  class="modal fade" id="confirmarExclusao" 
+		<div  class="modal" id="confirmarExclusao" 
 			data-bs-backdrop="static" data-bs-keyboard="false"
 			tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">

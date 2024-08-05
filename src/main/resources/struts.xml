@@ -29,16 +29,23 @@
         </action>
     </package>
 
-	    
     <package name="br.com.soc.sistema.examesfuncionarios" extends="struts-default" strict-method-invocation="false">
         <action name="*ExamesFuncionarios" class="br.com.soc.sistema.action.examesfuncionarios.ExamesFuncionariosAction" method="{1}">
         	<result name="success">/examesfuncionarios/cadExamesFuncionarios_b.jsp</result>
         	<result name="input">/examesfuncionarios/cadExamesFuncionarios_i.jsp</result>
         	<result name="editar">/examesfuncionarios/cadExamesFuncionarios_e.jsp</result>
-        	
         	<result name="redirect" type="redirectAction">todosExamesFuncionarios</result>
         </action>
     </package>
+    
+    <package name="br.com.soc.sistema.gerarrelatorio" extends="struts-default" strict-method-invocation="false">
+        <action name="*GerarRelatorio" class="br.com.soc.sistema.action.gerarrelatorio.GerarRelatorioAction" method="{1}">
+        	<result name="success">/gerarrelatorio/cadGerarRelatorio_b.jsp</result>
+        	<result name="HTML">/gerarrelatorio/cadGerarRelatorio_h.jsp</result>
+        	<result name="redirect" type="redirectAction">preencherGerarRelatorio</result> 	
+        </action>
+    </package>
+
 
 
 </struts>
