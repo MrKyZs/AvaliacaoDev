@@ -3,17 +3,17 @@ package br.com.soc.sistema.filter;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.soc.sistema.dao.examesfuncionarios.ExamesFuncionariosDAO;
+import br.com.soc.sistema.dao.examesfuncionario.ExamesFuncionarioDAO;
 import br.com.soc.sistema.infra.FiltroBusca;
-import br.com.soc.sistema.vo.ExamesFuncionariosVo;
+import br.com.soc.sistema.vo.ExamesFuncionarioVo;
 
-public class ExamesFuncionariosFilter {
+public class ExamesFuncionarioFilter {
 
-	ExamesFuncionariosDAO daoExameFuncionario = new ExamesFuncionariosDAO();
+	ExamesFuncionarioDAO daoExameFuncionario = new ExamesFuncionarioDAO();
 
-	public List<ExamesFuncionariosVo> selectFilter(FiltroBusca filtroBusca) {
+	public List<ExamesFuncionarioVo> selectFilter(FiltroBusca filtroBusca) {
 		
-		List<ExamesFuncionariosVo> examesFuncionariosFiltrados = new ArrayList<>();
+		List<ExamesFuncionarioVo> examesFuncionariosFiltrados = new ArrayList<>();
 		
 		switch(filtroBusca.getTipoFiltro()) {
 			case "Nome":

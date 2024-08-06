@@ -1,4 +1,4 @@
-package br.com.soc.sistema.action.examesfuncionarios;
+package br.com.soc.sistema.action.examesfuncionario;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -7,22 +7,22 @@ import java.util.List;
 
 import br.com.soc.sistema.business.ExameBusiness;
 import br.com.soc.sistema.business.ExamesFuncionarioBusiness;
-import br.com.soc.sistema.business.FuncionarioBusiness;
+import br.com.soc.sistema.business.FuncionariosBusiness;
 import br.com.soc.sistema.infra.Action;
 import br.com.soc.sistema.infra.FiltroBusca;
 import br.com.soc.sistema.vo.ExameVo;
-import br.com.soc.sistema.vo.ExamesFuncionariosVo;
+import br.com.soc.sistema.vo.ExamesFuncionarioVo;
 import br.com.soc.sistema.vo.FuncionarioVo;
 
-public class ExamesFuncionariosAction extends Action{
+public class ExamesFuncionarioAction extends Action{
 
-	private ExamesFuncionariosVo examesFuncionarioVo = new ExamesFuncionariosVo();
+	private ExamesFuncionarioVo examesFuncionarioVo = new ExamesFuncionarioVo();
 	private ExamesFuncionarioBusiness business = new ExamesFuncionarioBusiness();
-	private List<ExamesFuncionariosVo> listExamesFuncionarios = new ArrayList<>();
+	private List<ExamesFuncionarioVo> listExamesFuncionarios = new ArrayList<>();
 	private FiltroBusca filtroBusca;
 	private String dataExameString;
 	private Date dataExameDate;
-	private FuncionarioBusiness businessFuncionario = new FuncionarioBusiness();
+	private FuncionariosBusiness businessFuncionario = new FuncionariosBusiness();
 	private List<FuncionarioVo> listFuncionarios = new ArrayList<>();
 	
 	private List<ExameVo> listExames = new ArrayList<>();
@@ -112,16 +112,16 @@ public class ExamesFuncionariosAction extends Action{
 		return SUCCESS;
 	}
 	
-	public ExamesFuncionariosVo getExamesFuncionarioVo() {
+	public ExamesFuncionarioVo getExamesFuncionarioVo() {
 		return examesFuncionarioVo;
 	}
-	public void setExamesFuncionarioVo(ExamesFuncionariosVo examesFuncionarioVo) {
+	public void setExamesFuncionarioVo(ExamesFuncionarioVo examesFuncionarioVo) {
 		this.examesFuncionarioVo = examesFuncionarioVo;
 	}
-	public List<ExamesFuncionariosVo> getListExamesFuncionarios() {
+	public List<ExamesFuncionarioVo> getListExamesFuncionarios() {
 		return listExamesFuncionarios;
 	}
-	public void setListExamesFuncionarios(List<ExamesFuncionariosVo> listExamesFuncionarios) {
+	public void setListExamesFuncionarios(List<ExamesFuncionarioVo> listExamesFuncionarios) {
 		this.listExamesFuncionarios = listExamesFuncionarios;
 	}
 	public List<FuncionarioVo> getListFuncionarios() {

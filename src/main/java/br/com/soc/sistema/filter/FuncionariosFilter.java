@@ -3,13 +3,13 @@ package br.com.soc.sistema.filter;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.soc.sistema.dao.funcionarios.FuncionarioDAO;
+import br.com.soc.sistema.dao.funcionarios.FuncionariosDAO;
 import br.com.soc.sistema.infra.FiltroBusca;
 import br.com.soc.sistema.vo.FuncionarioVo;
 
-public class FuncionarioFilter {
+public class FuncionariosFilter {
 	
-	FuncionarioDAO daoFuncionario = new FuncionarioDAO();
+	FuncionariosDAO daoFuncionario = new FuncionariosDAO();
 
 	public List<FuncionarioVo> selectFilter(FiltroBusca filtroBusca) {
 		

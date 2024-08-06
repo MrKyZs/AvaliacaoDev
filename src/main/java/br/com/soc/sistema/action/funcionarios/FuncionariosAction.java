@@ -1,16 +1,16 @@
-package br.com.soc.sistema.action.funcionario;
+package br.com.soc.sistema.action.funcionarios;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.soc.sistema.business.FuncionarioBusiness;
+import br.com.soc.sistema.business.FuncionariosBusiness;
 import br.com.soc.sistema.infra.Action;
 import br.com.soc.sistema.infra.FiltroBusca;
 import br.com.soc.sistema.vo.FuncionarioVo;
 
-public class FuncionarioAction extends Action{
+public class FuncionariosAction extends Action{
 	private FuncionarioVo funcionarioVo = new FuncionarioVo();
-	private FuncionarioBusiness business = new FuncionarioBusiness();
+	private FuncionariosBusiness business = new FuncionariosBusiness();
 	private List<FuncionarioVo> listFuncionarios = new ArrayList<>();
 	private FiltroBusca filtroBusca;
 

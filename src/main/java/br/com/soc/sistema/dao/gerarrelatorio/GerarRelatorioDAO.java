@@ -10,14 +10,14 @@ import java.util.List;
 
 import br.com.soc.sistema.dao.MysqlDAO;
 import br.com.soc.sistema.vo.ExameVo;
-import br.com.soc.sistema.vo.ExamesFuncionariosVo;
+import br.com.soc.sistema.vo.ExamesFuncionarioVo;
 import br.com.soc.sistema.vo.FuncionarioVo;
 
 public class GerarRelatorioDAO {
 
 	MysqlDAO connectionSQL = new MysqlDAO();
 
-	public List<ExamesFuncionariosVo> selectRegistrosByDate(Date dataInicial, Date dataFinal){
+	public List<ExamesFuncionarioVo> selectRegistrosByDate(Date dataInicial, Date dataFinal){
 		
 		StringBuilder query = new StringBuilder("SELECT ef.rowid, ef.dataExame, ef.cd_funcionario, f.nm_funcionario, ef.cd_exame, e.nm_exame ");
 		query.append("FROM exame_funcionarios ef ");
@@ -25,7 +25,7 @@ public class GerarRelatorioDAO {
 		query.append("JOIN exame e ON ef.cd_exame = e.rowid ");
 		query.append("WHERE ef.dataExame BETWEEN ? AND ?");
 		
-		List<ExamesFuncionariosVo> listExamesFuncionarios = new ArrayList<>();
+		List<ExamesFuncionarioVo> listExamesFuncionarios = new ArrayList<>();
 		
 		try(Connection con = connectionSQL.criarConexao()){
 			try(PreparedStatement stm = con.prepareStatement(query.toString())){
@@ -43,7 +43,7 @@ public class GerarRelatorioDAO {
 								rs.getString("nm_exame")
 								);
 						
-						ExamesFuncionariosVo examesFuncionario = new ExamesFuncionariosVo(
+						ExamesFuncionarioVo examesFuncionario = new ExamesFuncionarioVo(
 								rs.getString("rowid"),
 								rs.getDate("dataExame"),
 								funcionario,

@@ -6,7 +6,7 @@ import java.util.List;
 
 import br.com.soc.sistema.business.GerarRelatorioBusiness;
 import br.com.soc.sistema.infra.Action;
-import br.com.soc.sistema.vo.ExamesFuncionariosVo;
+import br.com.soc.sistema.vo.ExamesFuncionarioVo;
 
 public class GerarRelatorioAction extends Action{
 
@@ -15,7 +15,7 @@ public class GerarRelatorioAction extends Action{
 	private String dataFinal;
 	private Date dataFinalDate;
 	private GerarRelatorioBusiness business = new GerarRelatorioBusiness();
-	List<ExamesFuncionariosVo> listaGerarRelatorio = new ArrayList<>();
+	List<ExamesFuncionarioVo> listaGerarRelatorio = new ArrayList<>();
 	
 	public String preencher() {
 		return SUCCESS;
@@ -77,10 +77,10 @@ public class GerarRelatorioAction extends Action{
 	public void setDataFinalDate(Date dataFinalDate) {
 		this.dataFinalDate = dataFinalDate;
 	}
-	public List<ExamesFuncionariosVo> getListaGerarRelatorio() {
+	public List<ExamesFuncionarioVo> getListaGerarRelatorio() {
 		return listaGerarRelatorio;
 	}
-	public void setListaGerarRelatorio(List<ExamesFuncionariosVo> listaGerarRelatorio) {
+	public void setListaGerarRelatorio(List<ExamesFuncionarioVo> listaGerarRelatorio) {
 		this.listaGerarRelatorio = listaGerarRelatorio;
 	}
 

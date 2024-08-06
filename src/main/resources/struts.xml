@@ -21,20 +21,20 @@
     </package>
     
 	<package name="br.com.soc.sistema.funcionarios" extends="struts-default" strict-method-invocation="false">
-        <action name="*Funcionario" class="br.com.soc.sistema.action.funcionario.FuncionarioAction" method="{1}">
-        	<result name="success">/funcionario/cadFuncionario_b.jsp</result>
-            <result name="input">/funcionario/cadFuncionario_i.jsp</result>
-            <result name="editar">/funcionario/cadFuncionario_e.jsp</result>
-        	<result name="redirect" type="redirectAction">todosFuncionario</result>
+        <action name="*Funcionarios" class="br.com.soc.sistema.action.funcionarios.FuncionariosAction" method="{1}">
+        	<result name="success">/funcionarios/cadFuncionarios_b.jsp</result>
+            <result name="input">/funcionarios/cadFuncionarios_i.jsp</result>
+            <result name="editar">/funcionarios/cadFuncionarios_e.jsp</result>
+        	<result name="redirect" type="redirectAction">todosFuncionarios</result>
         </action>
     </package>
 
-    <package name="br.com.soc.sistema.examesfuncionarios" extends="struts-default" strict-method-invocation="false">
-        <action name="*ExamesFuncionarios" class="br.com.soc.sistema.action.examesfuncionarios.ExamesFuncionariosAction" method="{1}">
-        	<result name="success">/examesfuncionarios/cadExamesFuncionarios_b.jsp</result>
-        	<result name="input">/examesfuncionarios/cadExamesFuncionarios_i.jsp</result>
-        	<result name="editar">/examesfuncionarios/cadExamesFuncionarios_e.jsp</result>
-        	<result name="redirect" type="redirectAction">todosExamesFuncionarios</result>
+    <package name="br.com.soc.sistema.examesfuncionario" extends="struts-default" strict-method-invocation="false">
+        <action name="*ExamesFuncionario" class="br.com.soc.sistema.action.examesfuncionario.ExamesFuncionarioAction" method="{1}">
+        	<result name="success">/examesfuncionario/cadExamesFuncionario_b.jsp</result>
+        	<result name="input">/examesfuncionario/cadExamesFuncionario_i.jsp</result>
+        	<result name="editar">/examesfuncionario/cadExamesFuncionario_e.jsp</result>
+        	<result name="redirect" type="redirectAction">todosExamesFuncionario</result>
         </action>
     </package>
     
@@ -45,7 +45,5 @@
         	<result name="redirect" type="redirectAction">preencherGerarRelatorio</result> 	
         </action>
     </package>
-
-
 
 </struts>

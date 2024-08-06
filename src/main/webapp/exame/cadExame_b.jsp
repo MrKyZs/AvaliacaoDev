@@ -10,7 +10,24 @@
 	</head>
 	<body class="bg-secondary">	
 	
-		<div class="container">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		  <div class="container-fluid">
+		    <a class="navbar-brand" href="#">Funcionalidades</a>
+		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+		      <span class="navbar-toggler-icon"></span>
+		    </button>
+		    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+		      <div class="navbar-nav">
+		        <a class="nav-link" aria-current="page" href="todosExames.action">Exames</a>
+		        <a class="nav-link" href="todosFuncionarios.action">Funcionarios</a>
+		        <a class="nav-link" href="todosExamesFuncionario.action">ExamesFuncionario</a>
+		        <a class="nav-link" href="preencherGerarRelatorio.action">Gerar Relatorio</a>
+		      </div>
+		    </div>
+		  </div>
+		</nav>
+	
+		<div class="container mt-3">
 			<div class="row mt-5 mb-2">
 				<div class="col-sm p-0">
 					<s:form action="/filtrarExames.action">
@@ -118,5 +135,5 @@
 		</div>
 		
 		<script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-		<script src="javascript/linksModal.js"></script>
+		<script src="javascript/JspJavaScript.js"></script>
 </html>

@@ -2,7 +2,7 @@ package br.com.soc.sistema.vo;
 
 import java.sql.Date;
 
-public class ExamesFuncionariosVo {
+public class ExamesFuncionarioVo {
 
 	
 	private String rowid;
@@ -10,11 +10,11 @@ public class ExamesFuncionariosVo {
 	private FuncionarioVo funcionario;
 	private ExameVo exame;
 	
-	public ExamesFuncionariosVo() {
+	public ExamesFuncionarioVo() {
 		
 	}
 	
-	public ExamesFuncionariosVo(String rowid, Date dataExame, FuncionarioVo funcionario, ExameVo exame) {
+	public ExamesFuncionarioVo(String rowid, Date dataExame, FuncionarioVo funcionario, ExameVo exame) {
 		this.rowid = rowid;
 		this.dataExame = dataExame;
 		this.funcionario = funcionario;

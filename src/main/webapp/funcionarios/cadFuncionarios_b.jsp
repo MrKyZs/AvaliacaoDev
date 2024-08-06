@@ -10,12 +10,27 @@
 	</head>
 	<body class="bg-secondary">	
 	
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		  <div class="container-fluid">
+		    <a class="navbar-brand" href="#">Funcionalidades</a>
+		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+		      <span class="navbar-toggler-icon"></span>
+		    </button>
+		    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+		      <div class="navbar-nav">
+		        <a class="nav-link" aria-current="page" href="todosExames.action">Exames</a>
+		        <a class="nav-link" href="todosFuncionarios.action">Funcionarios</a>
+		        <a class="nav-link" href="todosExamesFuncionario.action">ExamesFuncionario</a>
+		        <a class="nav-link" href="preencherGerarRelatorio.action">Gerar Relatorio</a>
+		      </div>
+		    </div>
+		  </div>
+		</nav>
 	
-		<div class="container">
-			
+		<div class="container mt-3">
 			<div class="row mt-5 mb-2">
 				<div class="col-sm p-0">
-					<s:form action="/filtrarFuncionario.action">
+					<s:form action="/filtrarFuncionarios.action">
 						<div class="input-group">
 							<span class="input-group-text">
 								<strong><s:text name="label.buscar.por"/></strong>
@@ -51,14 +66,14 @@
 								<td>${rowid}</td>
 								<td>${nome}</td>
 								<td class="text-end">
-									<s:url action="editarFuncionario" var="editar">
+									<s:url action="editarFuncionarios" var="editar">
 										<s:param name="funcionarioVo.rowid" value="%{rowid}"></s:param>
 									</s:url>
 									<a href="${editar}" class="btn btn-warning text-white">
 										<s:text name="label.editar"/>
 									</a>
 
-									<s:url action="excluirFuncionario" var="excluir">
+									<s:url action="excluirFuncionarios" var="excluir">
 										<s:param name="funcionarioVo.rowid" value="rowid"/>
 									</s:url>
 									<a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmarExclusao" onclick="confirmarExclusao('${excluir}')" >
@@ -72,7 +87,7 @@
 					<tfoot class="table-secondary">
 						<tr>
 							<td colspan="3">
-								<s:url action="exibirNovoFuncionario" var="novo"/>
+								<s:url action="exibirNovoFuncionarios" var="novo"/>
 								
 								<a href="${novo}" class="btn btn-success">
 									<s:text name="label.novo"/>
@@ -117,6 +132,6 @@
 		</div>
 		
 		<script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>	
-		<script src="javascript/linksModal.js"></script>
+		<script src="javascript/JspJavaScript.js"></script>
 	</body>
 </html>

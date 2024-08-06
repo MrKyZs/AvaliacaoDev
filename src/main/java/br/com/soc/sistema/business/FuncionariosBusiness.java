@@ -2,16 +2,16 @@ package br.com.soc.sistema.business;
 
 import java.util.List;
 
-import br.com.soc.sistema.dao.funcionarios.FuncionarioDAO;
+import br.com.soc.sistema.dao.funcionarios.FuncionariosDAO;
 import br.com.soc.sistema.exception.BusinessException;
-import br.com.soc.sistema.filter.FuncionarioFilter;
+import br.com.soc.sistema.filter.FuncionariosFilter;
 import br.com.soc.sistema.infra.FiltroBusca;
 import br.com.soc.sistema.vo.FuncionarioVo;
 
-public class FuncionarioBusiness {
+public class FuncionariosBusiness {
 	
-	FuncionarioDAO daoFuncionario = new FuncionarioDAO();
-	FuncionarioFilter filtroFuncionario = new FuncionarioFilter();
+	FuncionariosDAO daoFuncionario = new FuncionariosDAO();
+	FuncionariosFilter filtroFuncionario = new FuncionariosFilter();
 	
 	public void inserirFuncionario(FuncionarioVo funcionarioVo) {
 		daoFuncionario.insertFuncionario(funcionarioVo);

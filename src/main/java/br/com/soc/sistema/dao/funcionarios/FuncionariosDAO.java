@@ -10,12 +10,12 @@ import java.util.List;
 import br.com.soc.sistema.dao.MysqlDAO;
 import br.com.soc.sistema.vo.FuncionarioVo;
 
-public class FuncionarioDAO {
+public class FuncionariosDAO {
 
 	MysqlDAO connectionSQL = new MysqlDAO();
 	
 	public List<FuncionarioVo> selectAllFuncionarios() {
-			StringBuilder query = new StringBuilder("SELECT rowid id, nm_funcionario nome FROM funcionario");
+			StringBuilder query = new StringBuilder("SELECT rowid id, nm_funcionario nome FROM funcionario ORDER BY rowid");
 			
 			List<FuncionarioVo> listFuncionarios = new ArrayList<>();
 			

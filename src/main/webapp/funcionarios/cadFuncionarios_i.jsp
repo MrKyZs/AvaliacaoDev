@@ -10,13 +10,13 @@
 	<body class="bg-secondary">
 
 		<div class="container">
-			<s:form action="/novoFuncionario.action">
+			<s:form action="/novoFuncionarios.action">
 
 				<div class="card mt-5">
 					<div class="card-header">
 						<div class="row">
 							<div class="col-sm-5">
-								<s:url action="todosFuncionario" var="todos"/>
+								<s:url action="todosFuncionarios" var="todos"/>
 								<a href="${todos}" class="btn btn-success">Funcionario</a>
 							</div>
 							

@@ -3,29 +3,29 @@ package br.com.soc.sistema.business;
 import java.sql.Date;
 import java.util.List;
 
-import br.com.soc.sistema.dao.examesfuncionarios.ExamesFuncionariosDAO;
-import br.com.soc.sistema.filter.ExamesFuncionariosFilter;
+import br.com.soc.sistema.dao.examesfuncionario.ExamesFuncionarioDAO;
+import br.com.soc.sistema.filter.ExamesFuncionarioFilter;
 import br.com.soc.sistema.infra.FiltroBusca;
-import br.com.soc.sistema.vo.ExamesFuncionariosVo;
+import br.com.soc.sistema.vo.ExamesFuncionarioVo;
 
 public class ExamesFuncionarioBusiness {
 
-	ExamesFuncionariosDAO daoExameFuncionario = new ExamesFuncionariosDAO();
-	ExamesFuncionariosFilter filtroExamesFuncionarios = new ExamesFuncionariosFilter();
+	ExamesFuncionarioDAO daoExameFuncionario = new ExamesFuncionarioDAO();
+	ExamesFuncionarioFilter filtroExamesFuncionarios = new ExamesFuncionarioFilter();
 
-	public List<ExamesFuncionariosVo> mostrarFuncionarios() {
+	public List<ExamesFuncionarioVo> mostrarFuncionarios() {
 		return daoExameFuncionario.getAllExameFuncionarios();
 	}
 	
-	public void inserirExamesFuncionarios(ExamesFuncionariosVo examesFuncionarios) {
+	public void inserirExamesFuncionarios(ExamesFuncionarioVo examesFuncionarios) {
 		daoExameFuncionario.inserirExameFuncionario(examesFuncionarios);
 	}
 	
-	public ExamesFuncionariosVo getExamesFuncionariosById(String id) {
+	public ExamesFuncionarioVo getExamesFuncionariosById(String id) {
 		return daoExameFuncionario.getExameFuncionarioById(id);
 	}
 	
-	public void updateExamesFuncionarios(ExamesFuncionariosVo examesFuncionarios) {
+	public void updateExamesFuncionarios(ExamesFuncionarioVo examesFuncionarios) {
 		daoExameFuncionario.updateExameFuncionario(examesFuncionarios);
 	}
 	
@@ -33,7 +33,7 @@ public class ExamesFuncionarioBusiness {
 		daoExameFuncionario.deleteExameFuncionario(id);
 	}
 	
-	public List<ExamesFuncionariosVo> getResultFilter(FiltroBusca filtroBusca){
+	public List<ExamesFuncionarioVo> getResultFilter(FiltroBusca filtroBusca){
 		return filtroExamesFuncionarios.selectFilter(filtroBusca);
 	}
 	

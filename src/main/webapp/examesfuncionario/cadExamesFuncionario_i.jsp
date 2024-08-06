@@ -11,18 +11,18 @@
 	</head>
 	<body class="bg-secondary">
 		<div class="container">
-			<s:form action="/novoExamesFuncionarios.action">
+			<s:form action="/novoExamesFuncionario.action">
 
 				<div class="card mt-5">
 					<div class="card-header">
 						<div class="row">
 							<div class="col-sm-5">
-								<s:url action="todosExamesFuncionarios" var="todos"/>
-								<a href="${todos}" class="btn btn-success" >ExamesFuncionarios</a>
+								<s:url action="todosExamesFuncionario" var="todos"/>
+								<a href="${todos}" class="btn btn-success" >ExamesFuncionario</a>
 							</div>
 							
 							<div class="col-sm">
-								<h5 class="card-title">Novo ExamesFuncionarios</h5>
+								<h5 class="card-title">Novo ExamesFuncionario</h5>
 							</div>
 						</div>
 					</div>

@@ -14,7 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import br.com.soc.sistema.dao.gerarrelatorio.GerarRelatorioDAO;
-import br.com.soc.sistema.vo.ExamesFuncionariosVo;
+import br.com.soc.sistema.vo.ExamesFuncionarioVo;
 
 public class GerarRelatorioBusiness {
 
@@ -30,11 +30,11 @@ public class GerarRelatorioBusiness {
 		return String.valueOf(date);
 	}
 	
-	public List<ExamesFuncionariosVo> getRegistrosRelatorioByDate(Date dataInicial, Date dataFinal){
+	public List<ExamesFuncionarioVo> getRegistrosRelatorioByDate(Date dataInicial, Date dataFinal){
 		return gerarRelatorioDAO.selectRegistrosByDate(dataInicial, dataFinal);
 	}
 	
-	public void createRelatorio(List<ExamesFuncionariosVo> listaGerarRelatorio) {		
+	public void createRelatorio(List<ExamesFuncionarioVo> listaGerarRelatorio) {		
 		
 		XSSFWorkbook wb = new XSSFWorkbook();
 		XSSFSheet sheet = wb.createSheet("relatorioExamesFuncionarioByData");
@@ -52,7 +52,7 @@ public class GerarRelatorioBusiness {
 		row.createCell(5).setCellValue("Nome Exame");
 		
 		int rownum = 1;
-		for(ExamesFuncionariosVo examesFuncionarios :  listaGerarRelatorio) {
+		for(ExamesFuncionarioVo examesFuncionarios :  listaGerarRelatorio) {
 			XSSFRow rowFor = sheet.createRow(rownum++);
 			XSSFCell dataCelular = rowFor.createCell(1);
 			

@@ -86,7 +86,7 @@ public class ExameDao {
 	}
 	
 	public List<ExameVo> findAllExames(){
-		StringBuilder query = new StringBuilder("SELECT rowid id, nm_exame nome FROM exame");
+		StringBuilder query = new StringBuilder("SELECT rowid id, nm_exame nome FROM exame ORDER BY rowid");
 		try(
 			Connection con = connectionSQL.criarConexao();
 			PreparedStatement  ps = con.prepareStatement(query.toString());
