@@ -96,11 +96,11 @@ public class FuncionariosDAO {
 			try(PreparedStatement stm = con.prepareStatement(query.toString())){
 				stm.setString(1, funcionarioVo.getNome());
 				stm.executeUpdate();
+				con.commit();
 			}
 			catch (SQLException e) {
 				con.rollback();
 			}
-			con.commit();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -118,16 +118,15 @@ public class FuncionariosDAO {
 				stm.setString(1, funcionarioVo.getNome());
 				stm.setString(2, funcionarioVo.getRowid());
 				stm.executeUpdate();
+				con.commit();
 			}
 			catch(SQLException e) {
 				con.rollback();
 			}
-			con.commit();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	public void deleteFuncionario(String id) {
@@ -137,23 +136,20 @@ public class FuncionariosDAO {
 		
 		try(Connection con = connectionSQL.criarConexao()){
 			con.setAutoCommit(false);
-			try(PreparedStatement stm = con.prepareStatement(queryDeleteExamesFuncionario.toString())){
-				stm.setString(1, id);
-				stm.executeUpdate();
+			try {
+				try(PreparedStatement stm = con.prepareStatement(queryDeleteExamesFuncionario.toString())){
+					stm.setString(1, id);
+					stm.executeUpdate();
+				}
+				try(PreparedStatement stment = con.prepareStatement(queryDeleteFuncionario.toString())){
+					stment.setString(1, id);
+					stment.executeUpdate();
+				}
+				con.commit();
 			}
 			catch(SQLException e) {
 				con.rollback();
-			}
-			
-			try(PreparedStatement stment = con.prepareStatement(queryDeleteFuncionario.toString())){
-				stment.setString(1, id);
-				stment.executeUpdate();
-			}
-			catch(SQLException e) {
-				con.rollback();
-			}
-			
-			con.commit();
+			}	
 		}
 		
 		catch(SQLException e) {

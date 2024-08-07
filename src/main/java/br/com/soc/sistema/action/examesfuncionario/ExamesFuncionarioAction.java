@@ -24,7 +24,8 @@ public class ExamesFuncionarioAction extends Action{
 	private Date dataExameDate;
 	private FuncionariosBusiness businessFuncionario = new FuncionariosBusiness();
 	private List<FuncionarioVo> listFuncionarios = new ArrayList<>();
-	
+	private String errosFound;	
+
 	private List<ExameVo> listExames = new ArrayList<>();
 	private ExameBusiness businessExames = new ExameBusiness();
 	
@@ -103,12 +104,18 @@ public class ExamesFuncionarioAction extends Action{
 			return REDIRECT;
 		}
 
-		listExamesFuncionarios = business.getResultFilter(filtroBusca);
+		errosFound = business.checkErros(filtroBusca);
 		
-		if(listExamesFuncionarios.isEmpty()) {
-			return REDIRECT;
+		if(errosFound == null) {
+			listExamesFuncionarios = business.getResultFilter(filtroBusca);
+			if(listExamesFuncionarios.isEmpty()) {
+				return REDIRECT;
+			}		
 		}
-		
+		else {
+			return SUCCESS;
+		}
+
 		return SUCCESS;
 	}
 	
@@ -154,4 +161,11 @@ public class ExamesFuncionarioAction extends Action{
 	public void setFiltroBusca(FiltroBusca filtroBusca) {
 		this.filtroBusca = filtroBusca;
 	}
+	public String getErrosFound() {
+		return errosFound;
+	}
+	public void setErrosFound(String errosFound) {
+		this.errosFound = errosFound;
+	}
+
 }

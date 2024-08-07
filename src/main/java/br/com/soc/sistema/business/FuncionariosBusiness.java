@@ -13,7 +13,7 @@ public class FuncionariosBusiness {
 	FuncionariosDAO daoFuncionario = new FuncionariosDAO();
 	FuncionariosFilter filtroFuncionario = new FuncionariosFilter();
 	
-	public void inserirFuncionario(FuncionarioVo funcionarioVo) {
+	public void inserirFuncionario(FuncionarioVo funcionarioVo){
 		daoFuncionario.insertFuncionario(funcionarioVo);
 	}
 	
@@ -39,5 +39,9 @@ public class FuncionariosBusiness {
 	
 	public List<FuncionarioVo> mostrarResultadoFiltro(FiltroBusca filtroBusca){
 		return filtroFuncionario.selectFilter(filtroBusca);
+	}
+
+	public String checkErros(FiltroBusca filtroBusca){
+		return filtroFuncionario.checkErros(filtroBusca);
 	}
 }

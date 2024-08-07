@@ -85,6 +85,7 @@ public class ExamesFuncionarioDAO {
 							stm.setString(2, examesFuncionarios.getFuncionario().getRowid());
 							stm.setString(3, examesFuncionarios.getExame().getRowid());
 							stm.executeUpdate();
+							con.commit();
 						}
 						catch(SQLException e) {
 							con.rollback();
@@ -93,7 +94,6 @@ public class ExamesFuncionarioDAO {
 					}
 				}
 			}
-			con.commit();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -145,20 +145,16 @@ public class ExamesFuncionarioDAO {
 		StringBuilder query = new StringBuilder("UPDATE exame_funcionarios SET dataExame = ?, cd_funcionario = ?, cd_exame = ? WHERE rowid = ?");
 	
 		try(Connection con = connectionSQL.criarConexao()){
-			System.out.println("CHEGUEI CONEXAO");
 			con.setAutoCommit(false);
 			try(PreparedStatement stm = con.prepareStatement(query.toString())){
-				System.out.println("CHEGUEI CRIAR QUERY");
 				stm.setDate(1, examesFuncionarios.getDataExame());
 				stm.setString(2, examesFuncionarios.getFuncionario().getRowid());
 				stm.setString(3, examesFuncionarios.getExame().getRowid());
 				stm.setString(4, examesFuncionarios.getRowid());
 				stm.executeUpdate();
-				System.out.println("COMMITANDO");
 				con.commit();
 			}
 			catch(SQLException e) {
-				System.out.println("CHEGUEI ERRO");
 				e.printStackTrace();
 				con.rollback();
 			}

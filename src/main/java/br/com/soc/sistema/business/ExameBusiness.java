@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.soc.sistema.dao.exames.ExameDao;
 import br.com.soc.sistema.exception.BusinessException;
 import br.com.soc.sistema.filter.ExameFilter;
+import br.com.soc.sistema.infra.FiltroBusca;
 import br.com.soc.sistema.vo.ExameVo;
 
 public class ExameBusiness {
@@ -33,19 +34,45 @@ public class ExameBusiness {
 		
 	}	
 	
+	public boolean isNumero(String conteudo) {
+		try {
+			Integer.parseInt(conteudo);
+			return true;
+		}
+		catch(NumberFormatException e) {
+			return false;
+		}
+	}
+	
+	
+	public String checkErros(ExameFilter filter){
+		
+		String errosFound = null;
+		
+		switch(filter.getOpcoesCombo()) {
+			case NOME:
+				if(isNumero(filter.getValorBusca())) {
+					errosFound = "A busca por nomes nao deve possuir numeros";
+				}
+				break;
+			case ID:
+				if(!isNumero(filter.getValorBusca())) {
+					errosFound = "A busca por ID so deve possuir numeros";
+				}
+				break;
+		}
+		return errosFound;
+	}
+	
+	
 	public List<ExameVo> filtrarExames(ExameFilter filter){
 		List<ExameVo> exames = new ArrayList<>();
 		
 		switch (filter.getOpcoesCombo()) {
 			case ID:
-				try {
-					Integer codigo = Integer.parseInt(filter.getValorBusca());
-					exames.add(dao.findByCodigo(codigo));
-				}catch (NumberFormatException e) {
-					throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
-				}
+				Integer codigo = Integer.parseInt(filter.getValorBusca());
+				exames.add(dao.findByCodigo(codigo));
 			break;
-
 			case NOME:
 				exames.addAll(dao.findAllByNome(filter.getValorBusca()));
 			break;
@@ -76,14 +103,12 @@ public class ExameBusiness {
 		}
 	}
 	
+	public boolean exameRealizado(String id) {
+		return dao.exameRealizado(id);
+	}
+	
 	public void excluirExame(String id) {
-		try {
-			dao.deleteExame(id);
-		}
-		catch(Exception e){
-			e.printStackTrace();
-			throw new BusinessException("Nao foi possivel realizar a exclusão do registro");
-		}
+		dao.deleteExame(id);
 	}
 
 }

@@ -15,7 +15,9 @@ public class ExameAction extends Action {
 	private ExameBusiness business = new ExameBusiness();
 	private ExameFilter filtrar = new ExameFilter();
 	private ExameVo exameVo = new ExameVo();
-	
+	private String errosFound;
+	private boolean exameExcluir;
+
 	public String todos() {
 		exames.addAll(business.trazerTodosOsExames());	
 
@@ -26,6 +28,19 @@ public class ExameAction extends Action {
 		if(filtrar.isNullOpcoesCombo()) {
 			return REDIRECT;
 		}
+		
+		errosFound = business.checkErros(filtrar);
+		
+		if(errosFound == null) {
+			exames = business.filtrarExames(filtrar);
+			if(exames.isEmpty()) {
+				return REDIRECT;
+			}		
+		}
+		else {
+			return SUCCESS;
+		}
+
 		
 		exames = business.filtrarExames(filtrar);
 		
@@ -68,7 +83,13 @@ public class ExameAction extends Action {
 	
 	public String excluir(){
 
-		business.excluirExame(exameVo.getRowid());
+		if(business.exameRealizado(exameVo.getRowid())){
+			business.excluirExame(exameVo.getRowid());
+		}
+		else {
+			errosFound = "O exame escolhido possui agendamento com algum funcionario";
+			return SUCCESS;
+		}
 		
 		return REDIRECT;
 	}
@@ -99,5 +120,17 @@ public class ExameAction extends Action {
 
 	public void setExameVo(ExameVo exameVo) {
 		this.exameVo = exameVo;
+	}
+	public String getErrosFound() {
+		return errosFound;
+	}
+	public void setErrosFound(String errosFound) {
+		this.errosFound = errosFound;
+	}
+	public boolean isExameExcluir() {
+		return exameExcluir;
+	}
+	public void setExameExcluir(boolean exameExcluir) {
+		this.exameExcluir = exameExcluir;
 	}
 }

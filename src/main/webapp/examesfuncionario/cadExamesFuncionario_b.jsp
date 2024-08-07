@@ -10,6 +10,13 @@
 	</head>
 	<body class="bg-secondary">	
 
+		<s:if test="%{errosFound != null}">
+		    <script>
+				alert('<s:property value="errosFound"/>');
+			    window.location.href = '<s:url action="todosExamesFuncionario"/>';
+		    </script>
+		</s:if>
+
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="#">Funcionalidades</a>
@@ -38,7 +45,7 @@
 								<s:select  
 									cssClass="form-select" 
 									name="filtroBusca.tipoFiltro" 
-									list="#{'Nome': 'Nome', 'Exame':'Exame'}"  
+									list="#{'Nome': 'Nome', 'Exame':'Exame', 'ID': 'ID'}"  
 									headerKey=""  
 									headerValue="Escolha..." 							
 								/>

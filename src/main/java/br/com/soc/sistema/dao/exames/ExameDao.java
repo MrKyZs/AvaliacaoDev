@@ -48,40 +48,46 @@ public class ExameDao {
 		}
 	}
 	
-	public void deleteExame(String id) throws SQLException {
-		
+	public boolean exameRealizado(String id) {
 		StringBuilder queryChecarExamesFuncionarios = new StringBuilder("SELECT COUNT(cd_exame) AS examesRealizados FROM exame_funcionarios WHERE cd_exame = ?");
-		StringBuilder queryDeleteExame = new StringBuilder("DELETE FROM exame WHERE rowid = ?");
-		
 		int examesRealizados = -1;
 
 		try(Connection con = connectionSQL.criarConexao()){
-			con.setAutoCommit(false);
-			try(PreparedStatement statement = con.prepareStatement(queryChecarExamesFuncionarios.toString())){
-				statement.setString(1, id);
-				try(ResultSet rs = statement.executeQuery()){
-					while(rs.next()) {
+			try(PreparedStatement stm = con.prepareStatement(queryChecarExamesFuncionarios.toString())){
+				stm.setString(1, id);
+				try(ResultSet rs = stm.executeQuery()){
+					if(rs.next()) {
 						examesRealizados = rs.getInt("examesRealizados");
 					}
-					if(examesRealizados != 0) {
-						throw new BusinessException("Esse exame já foi realizado por algum funcionario");
+					if(examesRealizados == 0) {
+						return true;
 					}
-					else {
-						try(PreparedStatement stm = con.prepareStatement(queryDeleteExame.toString())){
-							stm.setString(1, id);
-							stm.executeUpdate();
-						}
-						catch(SQLException e) {
-							con.rollback();
-							e.printStackTrace();
-						}
-					}
-				}
-				catch(SQLException e) {
-					e.printStackTrace();
 				}
 			}
-			con.commit();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public void deleteExame(String id) {
+		StringBuilder queryDeleteExame = new StringBuilder("DELETE FROM exame WHERE rowid = ?");
+		
+		try(Connection con = connectionSQL.criarConexao()){
+			con.setAutoCommit(false);
+			try(PreparedStatement stm = con.prepareStatement(queryDeleteExame.toString())){
+				stm.setString(1, id);
+				stm.executeUpdate();
+				con.commit();
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+				con.rollback();
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
 	}
 	

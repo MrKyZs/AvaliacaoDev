@@ -33,6 +33,10 @@ public class ExamesFuncionarioBusiness {
 		daoExameFuncionario.deleteExameFuncionario(id);
 	}
 	
+	public String checkErros(FiltroBusca filtroBusca){
+		return filtroExamesFuncionarios.checkErros(filtroBusca);
+	}
+	
 	public List<ExamesFuncionarioVo> getResultFilter(FiltroBusca filtroBusca){
 		return filtroExamesFuncionarios.selectFilter(filtroBusca);
 	}

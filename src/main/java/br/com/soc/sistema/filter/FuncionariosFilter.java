@@ -11,35 +11,49 @@ public class FuncionariosFilter {
 	
 	FuncionariosDAO daoFuncionario = new FuncionariosDAO();
 
+	public String checkErros(FiltroBusca filtroBusca){
+		
+		String errosFound = null;
+		
+		switch(filtroBusca.getTipoFiltro()) {
+			case "Nome":
+				if(isNumero(filtroBusca.getConteudo())) {
+					errosFound = "A busca por nomes nao deve possuir numeros";
+				}
+				break;
+				
+			case "ID":
+				if(!isNumero(filtroBusca.getConteudo())) {
+					errosFound = "A busca por ID so deve possuir numeros";
+				}
+				break;
+		}
+		return errosFound;
+	}
+	
 	public List<FuncionarioVo> selectFilter(FiltroBusca filtroBusca) {
 		
 		List<FuncionarioVo> funcionariosFiltrados = new ArrayList<>();
 		
 		switch(filtroBusca.getTipoFiltro()) {
 			case "ID":
-				try {
-					 Integer.parseInt(filtroBusca.getConteudo());
-					 FuncionarioVo funcionario = daoFuncionario.selectById(filtroBusca.getConteudo());
-					 funcionariosFiltrados.add(funcionario);
-					 return funcionariosFiltrados;
-				}
-				catch(NumberFormatException e) {
-					throw new IllegalArgumentException("O ID deve ser um numero");
-				}
-				
+				FuncionarioVo funcionario = daoFuncionario.selectById(filtroBusca.getConteudo());
+				funcionariosFiltrados.add(funcionario);
+				return funcionariosFiltrados;
 			case "Nome":
-				try {
-					 Integer.parseInt(filtroBusca.getConteudo());
-					 throw new IllegalArgumentException("O Nome nao deve ser um numero");
-
-				}
-				catch(NumberFormatException e) {
-					 funcionariosFiltrados = daoFuncionario.selectByNome(filtroBusca.getConteudo());
-					 return funcionariosFiltrados;
-				}
-			
+				funcionariosFiltrados = daoFuncionario.selectByNome(filtroBusca.getConteudo());
+				return funcionariosFiltrados;	
 		}
 		return null;
 	}
 	
+	public boolean isNumero(String conteudo) {
+		try {
+			Integer.parseInt(conteudo);
+			return true;
+		}
+		catch(NumberFormatException e) {
+			return false;
+		}
+	}
 }

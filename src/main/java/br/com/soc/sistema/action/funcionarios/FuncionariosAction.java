@@ -13,6 +13,7 @@ public class FuncionariosAction extends Action{
 	private FuncionariosBusiness business = new FuncionariosBusiness();
 	private List<FuncionarioVo> listFuncionarios = new ArrayList<>();
 	private FiltroBusca filtroBusca;
+	private String errosFound;	
 
 	public String todos() {
 
@@ -67,11 +68,17 @@ public class FuncionariosAction extends Action{
 		if(filtroBusca.getTipoFiltro() == "" || filtroBusca.getConteudo() == "") {
 			return REDIRECT;
 		}
-
-		listFuncionarios = business.mostrarResultadoFiltro(filtroBusca);
 		
-		if(listFuncionarios.isEmpty() || listFuncionarios.get(0) == null) {
-			return REDIRECT;
+		errosFound = business.checkErros(filtroBusca);
+
+		if(errosFound == null) {
+			listFuncionarios = business.mostrarResultadoFiltro(filtroBusca);
+			if(listFuncionarios.isEmpty()) {
+				return REDIRECT;
+			}		
+		}
+		else {
+			return SUCCESS;
 		}
 		
 		return SUCCESS;
@@ -95,6 +102,11 @@ public class FuncionariosAction extends Action{
 	public void setFiltroBusca(FiltroBusca filtroBusca) {
 		this.filtroBusca = filtroBusca;
 	}
-
+	public String getErrosFound() {
+		return errosFound;
+	}
+	public void setErrosFound(String errosFound) {
+		this.errosFound = errosFound;
+	}
 
 }

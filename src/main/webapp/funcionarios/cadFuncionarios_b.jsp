@@ -10,6 +10,13 @@
 	</head>
 	<body class="bg-secondary">	
 	
+		<s:if test="%{errosFound != null}">
+		    <script>
+				alert('<s:property value="errosFound"/>');
+			    window.location.href = '<s:url action="todosFuncionarios"/>';
+		    </script>
+		</s:if>
+	
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="#">Funcionalidades</a>

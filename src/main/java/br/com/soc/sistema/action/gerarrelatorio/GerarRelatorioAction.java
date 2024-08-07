@@ -31,6 +31,11 @@ public class GerarRelatorioAction extends Action{
 		dataInicialDate = business.changeToDateType(dataInicial);
 		dataFinalDate = business.changeToDateType(dataFinal);
 		
+		if(dataInicialDate.after(dataFinalDate)){
+			addFieldError("dataInicial", "A data inicial deve ser anterior a data final");
+			return SUCCESS;
+		}
+		
 		listaGerarRelatorio = business.getRegistrosRelatorioByDate(dataInicialDate, dataFinalDate);
 		business.createRelatorio(listaGerarRelatorio);
 		
@@ -45,9 +50,13 @@ public class GerarRelatorioAction extends Action{
 		
 		dataInicialDate = business.changeToDateType(dataInicial);
 		dataFinalDate = business.changeToDateType(dataFinal);
-		System.out.println("CHEGUEI: " + dataInicialDate);
+		
+		if(dataInicialDate.after(dataFinalDate)){
+			addFieldError("dataInicial", "A data inicial deve ser anterior a data final");
+			return SUCCESS;
+		}
+		
 		listaGerarRelatorio = business.getRegistrosRelatorioByDate(dataInicialDate, dataFinalDate);
-		System.out.println("CHEGUEI: " + listaGerarRelatorio);
 		
 		return "HTML";
 		
