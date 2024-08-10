@@ -37,37 +37,37 @@ public class GerarRelatorioBusiness {
 	public void createRelatorio(List<ExamesFuncionarioVo> listaGerarRelatorio) {		
 		
 		XSSFWorkbook wb = new XSSFWorkbook();
-		XSSFSheet sheet = wb.createSheet("relatorioExamesFuncionarioByData");
+		XSSFSheet planilha = wb.createSheet("relatorioExamesFuncionarioByData");
 		
 		CreationHelper createHelper = wb.getCreationHelper();
 		XSSFCellStyle dateCellStyle = wb.createCellStyle();
 	    dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd/MM/yyyy"));
 		
-		XSSFRow row = sheet.createRow(0);
-		row.createCell(0).setCellValue("ID");
-		row.createCell(1).setCellValue("Data Exame");
-		row.createCell(2).setCellValue("ID Funcionario");
-		row.createCell(3).setCellValue("Nome Funcionario");
-		row.createCell(4).setCellValue("ID Exame");
-		row.createCell(5).setCellValue("Nome Exame");
+		XSSFRow linhaCabecalho = planilha.createRow(0);
+		linhaCabecalho.createCell(0).setCellValue("ID");
+		linhaCabecalho.createCell(1).setCellValue("Data Exame");
+		linhaCabecalho.createCell(2).setCellValue("ID Funcionario");
+		linhaCabecalho.createCell(3).setCellValue("Nome Funcionario");
+		linhaCabecalho.createCell(4).setCellValue("ID Exame");
+		linhaCabecalho.createCell(5).setCellValue("Nome Exame");
 		
-		int rownum = 1;
+		int numeroLinha = 1;
 		for(ExamesFuncionarioVo examesFuncionarios :  listaGerarRelatorio) {
-			XSSFRow rowFor = sheet.createRow(rownum++);
-			XSSFCell dataCelular = rowFor.createCell(1);
+			XSSFRow linhaConteudo = planilha.createRow(numeroLinha++);
+			XSSFCell dataCelular = linhaConteudo.createCell(1);
 			
-			rowFor.createCell(0).setCellValue(examesFuncionarios.getRowid());
+			linhaConteudo.createCell(0).setCellValue(examesFuncionarios.getRowid());
 			
 			dataCelular.setCellValue(examesFuncionarios.getDataExame());
 			dataCelular.setCellStyle(dateCellStyle);
 			
-			rowFor.createCell(2).setCellValue(examesFuncionarios.getFuncionario().getRowid());
-			rowFor.createCell(3).setCellValue(examesFuncionarios.getFuncionario().getNome());
-			rowFor.createCell(4).setCellValue(examesFuncionarios.getExame().getRowid());
-			rowFor.createCell(5).setCellValue(examesFuncionarios.getExame().getNome());
+			linhaConteudo.createCell(2).setCellValue(examesFuncionarios.getFuncionario().getRowid());
+			linhaConteudo.createCell(3).setCellValue(examesFuncionarios.getFuncionario().getNome());
+			linhaConteudo.createCell(4).setCellValue(examesFuncionarios.getExame().getRowid());
+			linhaConteudo.createCell(5).setCellValue(examesFuncionarios.getExame().getNome());
 		}
 	    for (int i = 0; i <= 5; i++) {
-	        sheet.autoSizeColumn(i);
+	    	planilha.autoSizeColumn(i);
 	    }		
 		try {
 			FileOutputStream out = new FileOutputStream(new File(pathArquivo));

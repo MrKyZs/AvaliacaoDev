@@ -58,39 +58,23 @@ public class ExamesFuncionarioDAO {
 		}
 		return listExamesFuncionarios;
 	}
-
-	public void inserirExameFuncionario(ExamesFuncionarioVo examesFuncionarios) {
-		
+	
+	public boolean possuiCopia(ExamesFuncionarioVo examesFuncionarios) {
 		StringBuilder querySelectExamesFuncionarios = new StringBuilder("SELECT COUNT(*) AS examesIguais FROM exame_funcionarios WHERE dataExame = ? AND cd_funcionario = ? AND cd_exame = ?");
-		StringBuilder queryInsert = new StringBuilder("INSERT INTO exame_funcionarios (dataExame, cd_funcionario, cd_exame) VALUES (?, ?, ?)");
 		
-		int examesIguais = -1;
-		
+		int examesCadastradosIguais = -1;
+
 		try(Connection con = connectionSQL.criarConexao()){
-			con.setAutoCommit(false);
-			try(PreparedStatement statement = con.prepareStatement(querySelectExamesFuncionarios.toString())){
-				statement.setDate(1, examesFuncionarios.getDataExame());
-				statement.setString(2, examesFuncionarios.getFuncionario().getRowid());
-				statement.setString(3, examesFuncionarios.getExame().getRowid());
-				try(ResultSet rs = statement.executeQuery()){
-					while(rs.next()) {
-						examesIguais = rs.getInt("examesIguais");
+			try(PreparedStatement stm = con.prepareStatement(querySelectExamesFuncionarios.toString())){
+				stm.setDate(1, examesFuncionarios.getDataExame());
+				stm.setString(2, examesFuncionarios.getFuncionario().getRowid());
+				stm.setString(3, examesFuncionarios.getExame().getRowid());			
+				try(ResultSet rs = stm.executeQuery()){
+					if(rs.next()) {
+						examesCadastradosIguais = rs.getInt("examesIguais");
 					}
-					if(examesIguais != 0) {
-						throw new BusinessException("Esse exame já foi cadastrado para este funcionario");
-					}
-					else {
-						try(PreparedStatement stm = con.prepareStatement(queryInsert.toString())){
-							stm.setDate(1, examesFuncionarios.getDataExame());
-							stm.setString(2, examesFuncionarios.getFuncionario().getRowid());
-							stm.setString(3, examesFuncionarios.getExame().getRowid());
-							stm.executeUpdate();
-							con.commit();
-						}
-						catch(SQLException e) {
-							con.rollback();
-							e.printStackTrace();
-						}
+					if(examesCadastradosIguais == 0) {
+						return true;
 					}
 				}
 			}
@@ -98,6 +82,31 @@ public class ExamesFuncionarioDAO {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		return false;
+	}
+	
+
+	public void inserirExameFuncionario(ExamesFuncionarioVo examesFuncionarios) {
+		
+		StringBuilder queryInsert = new StringBuilder("INSERT INTO exame_funcionarios (dataExame, cd_funcionario, cd_exame) VALUES (?, ?, ?)");
+				
+		try(Connection con = connectionSQL.criarConexao()){
+			con.setAutoCommit(false);
+				try(PreparedStatement stm = con.prepareStatement(queryInsert.toString())){
+					stm.setDate(1, examesFuncionarios.getDataExame());
+					stm.setString(2, examesFuncionarios.getFuncionario().getRowid());
+					stm.setString(3, examesFuncionarios.getExame().getRowid());
+					stm.executeUpdate();
+					con.commit();
+				}
+				catch(SQLException e) {
+					e.printStackTrace();
+					con.rollback();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
 	}
 
 	public ExamesFuncionarioVo getExameFuncionarioById(String id) {

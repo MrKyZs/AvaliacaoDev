@@ -39,12 +39,12 @@ public class ExameDao {
 				stm.setString(1, examevo.getNome());
 				stm.setString(2, examevo.getRowid());
 				stm.executeUpdate();
+				con.commit();
 			}
 			catch(SQLException e) {
 				con.rollback();
 				e.printStackTrace();
 			}
-			con.commit();
 		}
 	}
 	

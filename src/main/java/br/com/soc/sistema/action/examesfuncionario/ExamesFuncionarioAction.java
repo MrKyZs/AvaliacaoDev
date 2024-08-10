@@ -54,7 +54,16 @@ public class ExamesFuncionarioAction extends Action{
 		
 		dataExameDate = business.changeToDateType(dataExameString);
 		examesFuncionarioVo.setDataExame(dataExameDate);
-		business.inserirExamesFuncionarios(examesFuncionarioVo);
+		
+		if(business.checarCopias(examesFuncionarioVo)) {
+			business.inserirExamesFuncionarios(examesFuncionarioVo);
+		}
+		else {
+			errosFound = "Ja existe um mesmo cadastro para esse funcionario, exame e dia";
+			return SUCCESS;
+		}
+		
+
 
 		return REDIRECT;
 	}

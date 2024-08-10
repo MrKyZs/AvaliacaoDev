@@ -25,7 +25,7 @@
 		    </button>
 		    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 		      <div class="navbar-nav">
-		        <a class="nav-link" aria-current="page" href="todosExames.action">Exames</a>
+		        <a class="nav-link active" aria-current="page" href="todosExames.action">Exames</a>
 		        <a class="nav-link" href="todosFuncionarios.action">Funcionarios</a>
 		        <a class="nav-link" href="todosExamesFuncionario.action">ExamesFuncionario</a>
 		        <a class="nav-link" href="preencherGerarRelatorio.action">Gerar Relatorio</a>

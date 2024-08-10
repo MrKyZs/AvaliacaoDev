@@ -17,6 +17,10 @@ public class ExamesFuncionarioBusiness {
 		return daoExameFuncionario.getAllExameFuncionarios();
 	}
 	
+	public boolean checarCopias(ExamesFuncionarioVo examesFuncionarios) {
+		return daoExameFuncionario.possuiCopia(examesFuncionarios);
+	}
+	
 	public void inserirExamesFuncionarios(ExamesFuncionarioVo examesFuncionarios) {
 		daoExameFuncionario.inserirExameFuncionario(examesFuncionarios);
 	}
